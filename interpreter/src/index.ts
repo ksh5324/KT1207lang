@@ -6,9 +6,15 @@ const testCode = `
 경태 b 는 3.14;
 경태 g 는 true;
 경태 k;
+
 내가_데 "이경태" a;
 내가_데 g;
-내가_데 "sdf_" b "_fds" ;
+내가_데 "sdf" b "fds";
+`;
+
+const testCodeV2 = `
+내가_데 3 깜 5;
+g 는 a 찍 b;
 `;
 
 export default function main(code: string) {
@@ -23,7 +29,7 @@ export default function main(code: string) {
   const outputs: string[] = [];
 
   distribute.forEach((v: string) => {
-    const line: string | void = compile.run(v);
+    const line: string | void | number = compile.run(v);
     if (typeof line === "string") {
       outputs.push(line);
     }

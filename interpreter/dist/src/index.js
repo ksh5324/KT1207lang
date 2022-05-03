@@ -7,9 +7,14 @@ const testCode = `
 경태 b 는 3.14;
 경태 g 는 true;
 경태 k;
+
 내가_데 "이경태" a;
 내가_데 g;
-내가_데 "sdf_" b "_fds" ;
+내가_데 "sdf" b "fds";
+`;
+const testCodeV2 = `
+내가_데 3 깜 5;
+g 는 a 찍 b;
 `;
 function main(code) {
     code = code

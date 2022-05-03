@@ -10,9 +10,8 @@ class Compile {
         this.variableNum = 0;
     }
     run(line) {
-        var _a, _b;
         let result = "";
-        let i = 1;
+        // let i: number = 1;
         const t = line.split(" ");
         // 변수 생성 코드
         if (line.includes(Token_1.literal_char.경태)) {
@@ -20,26 +19,11 @@ class Compile {
         }
         // 대입 코드
         if (line.includes(Token_1.literal_char.는)) {
-            let r = this.variable.find((v, index) => v.key === t[t.indexOf(Token_1.literal_char.는) - 1]);
-            r.value = t[t.indexOf(Token_1.literal_char.는) + 1];
+            this.substitute(t);
         }
         // 출력 코드
         if (line.includes(Token_1.inputOutput.내가_데)) {
-            if (t[t.indexOf(Token_1.inputOutput.내가_데) + 1].includes('"')) {
-                let r = this.variable.find((v, index) => v.key === t[t.indexOf(Token_1.inputOutput.내가_데) + 2]);
-                console.log(t[t.indexOf(Token_1.inputOutput.내가_데) + 1].slice(1, -1) +
-                    r.value +
-                    (t[t.indexOf(Token_1.inputOutput.내가_데) + 3] !== undefined
-                        ? (_a = t[t.indexOf(Token_1.inputOutput.내가_데) + 3]) === null || _a === void 0 ? void 0 : _a.slice(1, -1)
-                        : ""));
-            }
-            else {
-                let r = this.variable.find((v, index) => v.key === t[t.indexOf(Token_1.inputOutput.내가_데) + 1]);
-                console.log(r.value +
-                    (t[t.indexOf(Token_1.inputOutput.내가_데) + 3] !== undefined
-                        ? (_b = t[t.indexOf(Token_1.inputOutput.내가_데) + 3]) === null || _b === void 0 ? void 0 : _b.slice(1, -1)
-                        : ""));
-            }
+            this.printValue(t);
         }
         if (result == "") {
             return;
@@ -52,6 +36,31 @@ class Compile {
             key: word,
             value: ktType_1.경태머리,
         };
+    }
+    // 대입 함수
+    substitute(t) {
+        let r = this.variable.find((v) => v.key === t[t.indexOf(Token_1.literal_char.는) - 1]);
+        r.value = t[t.indexOf(Token_1.literal_char.는) + 1];
+    }
+    // 출력 함수
+    printValue(t) {
+        var _a, _b;
+        if (t[t.indexOf(Token_1.inputOutput.내가_데) + 1].includes('"')) {
+            let r = this.variable.find((v, index) => v.key === t[t.indexOf(Token_1.inputOutput.내가_데) + 2]);
+            console.log(t[t.indexOf(Token_1.inputOutput.내가_데) + 1].slice(1, -1) +
+                " " +
+                r.value +
+                (t[t.indexOf(Token_1.inputOutput.내가_데) + 3] !== undefined
+                    ? " " + ((_a = t[t.indexOf(Token_1.inputOutput.내가_데) + 3]) === null || _a === void 0 ? void 0 : _a.slice(1, -1))
+                    : ""));
+        }
+        else {
+            let r = this.variable.find((v) => v.key === t[t.indexOf(Token_1.inputOutput.내가_데) + 1]);
+            console.log(r.value +
+                (t[t.indexOf(Token_1.inputOutput.내가_데) + 3] !== undefined
+                    ? " " + ((_b = t[t.indexOf(Token_1.inputOutput.내가_데) + 3]) === null || _b === void 0 ? void 0 : _b.slice(1, -1))
+                    : ""));
+        }
     }
 }
 exports.Compile = Compile;
