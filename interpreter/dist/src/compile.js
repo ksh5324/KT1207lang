@@ -40,7 +40,40 @@ class Compile {
     // 대입 함수
     substitute(t) {
         let r = this.variable.find((v) => v.key === t[t.indexOf(Token_1.literal_char.는) - 1]);
-        r.value = t[t.indexOf(Token_1.literal_char.는) + 1];
+        if (t.includes(Token_1.operator.깜) ||
+            t.includes(Token_1.operator.찍) ||
+            t.includes(Token_1.operator.한) ||
+            t.includes(Token_1.operator.경) ||
+            t.includes(Token_1.operator.태)) {
+            if (t.includes(Token_1.operator.깜)) {
+                let p = this.variable.find((v) => v.key === t[t.indexOf(Token_1.operator.깜) - 1]);
+                let p2 = this.variable.find((v) => v.key === t[t.indexOf(Token_1.operator.깜) + 1]);
+                r.value = Number(p.value) + Number(p2.value);
+            }
+            if (t.includes(Token_1.operator.찍)) {
+                let p = this.variable.find((v) => v.key === t[t.indexOf(Token_1.operator.찍) - 1]);
+                let p2 = this.variable.find((v) => v.key === t[t.indexOf(Token_1.operator.찍) + 1]);
+                r.value = Number(p.value) - Number(p2.value);
+            }
+            if (t.includes(Token_1.operator.한)) {
+                let p = this.variable.find((v) => v.key === t[t.indexOf(Token_1.operator.한) - 1]);
+                let p2 = this.variable.find((v) => v.key === t[t.indexOf(Token_1.operator.한) + 1]);
+                r.value = Number(p.value) * Number(p2.variableNum);
+            }
+            if (t.includes(Token_1.operator.경)) {
+                let p = this.variable.find((v) => v.key === t[t.indexOf(Token_1.operator.경) - 1]);
+                let p2 = this.variable.find((v) => v.key === t[t.indexOf(Token_1.operator.경) + 1]);
+                r.value = Number(p.value) / Number(p2.value);
+            }
+            if (t.includes(Token_1.operator.태)) {
+                let p = this.variable.find((v) => v.key === t[t.indexOf(Token_1.operator.태) - 1]);
+                let p2 = this.variable.find((v) => v.key === t[t.indexOf(Token_1.operator.태) + 1]);
+                r.value = Number(p.value) % Number(p2.value);
+            }
+        }
+        else {
+            r.value = t[t.indexOf(Token_1.literal_char.는) + 1];
+        }
     }
     // 출력 함수
     printValue(t) {
