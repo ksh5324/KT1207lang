@@ -1,7 +1,10 @@
-import { 경태머리 } from "./ktType";
+import { Compile } from "./compile";
 
 const testCode = `
 경태 a 는 3;
+경태 c 는 "sdf";
+경태 b 는 3.14;
+경태 g 는 true;
 내가_데 경대(a);
 `;
 
@@ -13,10 +16,18 @@ export default function main(code: string) {
 
   const distribute = code.split(";");
 
-  console.log(code);
-  console.log(distribute);
-
+  const compile = new Compile();
   const outputs: string[] = [];
+
+  distribute.forEach((v: string) => {
+    const line: string | void = compile.run(v);
+    if (typeof line === "string") {
+      outputs.push(line);
+    }
+  });
+
+  console.log(outputs);
+  console.log(compile.variable);
 }
 
 main(testCode);
