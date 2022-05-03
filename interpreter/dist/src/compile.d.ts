@@ -3,5 +3,5 @@ export declare class Compile {
     variable: any;
     variableNum: number;
     run(line: string): string | void;
-    makeVariable(word: string, t: string[]): void;
+    makeVariable(word: string): void;
 }

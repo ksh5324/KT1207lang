@@ -6,7 +6,8 @@ const testCode = `
 경태 c 는 "sdf";
 경태 b 는 3.14;
 경태 g 는 true;
-내가_데 경대(a);
+경태 k;
+내가_데 "이경태" a;
 `;
 function main(code) {
     code = code
@@ -22,8 +23,8 @@ function main(code) {
             outputs.push(line);
         }
     });
-    console.log(outputs);
-    console.log(compile.variable);
+    //   console.log(outputs);
+    //   console.log(compile.variable);
 }
 exports.default = main;
 main(testCode);
