@@ -7,6 +7,8 @@ const testCode = `
 경태 g 는 true;
 경태 k;
 내가_데 "이경태" a;
+내가_데 g;
+내가_데 "sdf_" b "_fds" ;
 `;
 
 export default function main(code: string) {
