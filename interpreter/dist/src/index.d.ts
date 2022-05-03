@@ -1,1 +1,1 @@
-declare const a = 3;
+export default function main(code: string): void;
