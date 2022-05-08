@@ -1,18 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const context_1 = require("./context");
 const parser_1 = require("./parser");
 const testCode = `
-sdfge sms;
+경태k;
 `;
 function main(code) {
     code = code
         .split("\n")
         .map((line) => line.trim())
         .join("");
-    console.log(code);
+    const context = new context_1.Context();
     const distribute = code.split(";");
     distribute.forEach((v) => {
         console.log((0, parser_1.parser)(v));
+        // analysis();
     });
 }
 exports.default = main;
