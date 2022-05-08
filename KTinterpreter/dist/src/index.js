@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const context_1 = require("./context");
 const parser_1 = require("./parser");
 const testCode = `
-경태k;
+경태kk 는 345 "hggjsdf""sldfj"; 
 `;
 function main(code) {
     code = code
@@ -15,6 +15,7 @@ function main(code) {
     distribute.forEach((v) => {
         console.log((0, parser_1.parser)(v));
         // analysis();
+        // print();
     });
 }
 exports.default = main;

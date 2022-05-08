@@ -5,7 +5,7 @@ class Context {
     constructor() {
         this.variable = [];
         this.functionContext = [];
-        this.variableNum = 0;
+        // variableNum: number = 0;
         this.output = [];
     }
 }

@@ -1,8 +1,12 @@
 export enum Token_type {
   경태머리 = 0, // null 값
   identifier, // 식별자
+  variable, // 변수
+  replace, // =
 
-  variable, //리터럴
+  number, // 숫자
+  string, // 문자열
+
   print, //출력문
 
   깜, // +
@@ -15,7 +19,6 @@ export enum Token_type {
   응, // }
 
   quote, //쌍따옴표
-  는, // =
 
   comma,
   Semicolon, //, ;

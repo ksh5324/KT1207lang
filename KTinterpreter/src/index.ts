@@ -2,7 +2,7 @@ import { Context } from "./context";
 import { parser } from "./parser";
 
 const testCode = `
-경태k;
+경태kk 는 345 "hggjsdf""sldfj"; 
 `;
 
 export default function main(code: string) {
