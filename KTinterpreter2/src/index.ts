@@ -15,6 +15,10 @@ let code = `
       dfjsdjflksl;
       dfjsei;
     응;
+    살고싶지않아?(a>=3)
+    헤
+      내가_데 3
+    응;
 `;
 
 code = code
