@@ -31,15 +31,80 @@ class TokenParser {
             }
             else {
                 let symbolBuf = currentChar;
-                // currentChar = this.getChar();
-                // string
-                while (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/[a-zA-Z]/)) {
-                    currentChar = this.getChar();
-                    if (currentChar != null) {
-                        symbolBuf += currentChar;
+                if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/[a-zA-Z]/)) {
+                    // 식별자
+                    while (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/[a-zA-Z]/)) {
+                        currentChar = this.getChar();
+                        if (currentChar != null) {
+                            if (currentChar.match(/[^a-zA-Z]/)) {
+                                this.charIndex--;
+                            }
+                            else {
+                                symbolBuf += currentChar;
+                            }
+                        }
                     }
+                    console.log("symbol: " + symbolBuf);
                 }
-                console.log("symbol: " + symbolBuf);
+                else {
+                    // 경태 -> 변수 선언 및 경 -> 곱하기 연산자 찾아내기
+                    if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/경/)) {
+                        while (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/[경|태]/)) {
+                            currentChar = this.getChar();
+                            if (symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.match(/경태/)) {
+                                console.log("var: " + symbolBuf);
+                            } // if
+                            else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/[a-zA-Z]/)) {
+                                if (symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.includes("경경")) {
+                                    console.log("번째 실행문에서" + "error: mul 연산자가 2개입니다.");
+                                }
+                                else {
+                                    console.log("mul: " + symbolBuf);
+                                }
+                            }
+                            symbolBuf += currentChar;
+                        } // while
+                        this.charIndex--; // 한글자 초과 해결
+                    } // symbol>var,mul if
+                    else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/는/)) {
+                        console.log("assign: " + symbolBuf);
+                    }
+                    else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/귀|여|운|태/)) {
+                        switch (currentChar) {
+                            case "귀":
+                                console.log("sum: " + symbolBuf);
+                                break;
+                            case "여":
+                                console.log("sub: " + symbolBuf);
+                                break;
+                            case "운":
+                                console.log("div: " + symbolBuf);
+                                break;
+                            case "태":
+                                console.log("left: " + symbolBuf);
+                                break;
+                        }
+                    }
+                    else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/내/)) {
+                        while (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/[내|가|_|데]/)) {
+                            currentChar = this.getChar();
+                            symbolBuf += currentChar;
+                            if ((symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.match(/내가_데/)) && (symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.length) === 4) {
+                                console.log("print: " + symbolBuf);
+                            } // if
+                            else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/[a-zA-Z0-9]/)) {
+                                break;
+                            }
+                            else if ((symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.length) > 4) {
+                                throw Error("error: 출력 식별자의 이름이 잘못되었습니다.");
+                            }
+                        }
+                        this.charIndex--;
+                    }
+                    else {
+                        console.log("알수없는 문자: " + symbolBuf);
+                    }
+                } // symbol if
             }
             currentChar = this.getChar();
         }

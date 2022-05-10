@@ -1,7 +1,7 @@
 import { TokenParser } from "./TokenParser";
 
 let code = `
-    const code ="wow I love it!"dfads
+    "wow I love it!"dfads경경ss경e경태js는efjlsej 경ㄱ경태dljk귀여운내가_데3;
 `;
 
 code = code
@@ -9,5 +9,10 @@ code = code
   .map((line: string) => line.trim())
   .join("");
 
-const parser = new TokenParser(code);
-parser.parseAndGetTokens();
+const distribute = code.split(";");
+
+distribute.forEach((v) => {
+  console.log("-------------------------------------------------------");
+  const parser = new TokenParser(v);
+  parser.parseAndGetTokens();
+});
