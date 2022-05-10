@@ -38,7 +38,9 @@ class TokenParser {
 
         while (currentChar?.match(/[a-zA-Z]/)) {
           currentChar = this.getChar();
-          symbolBuf += currentChar!!;
+          if (currentChar != null) {
+            symbolBuf += currentChar!!;
+          }
         }
         console.log("symbol: " + symbolBuf);
       }
