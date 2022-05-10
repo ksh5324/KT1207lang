@@ -31,6 +31,21 @@ class TokenParser {
         }
         stringBuf = stringBuf?.substring(0, stringBuf.length - 1)!!;
         console.log(stringBuf);
+      } else if (currentChar?.match(/[0-9.]/)) {
+        let numBuf = currentChar;
+        let pointNum = 0;
+        while (currentChar?.match(/[0-9.]/)) {
+          currentChar = this.getChar();
+          pointNum = numBuf.split(".").length - 1;
+          if (currentChar?.match(/[0-9.]/)) {
+            numBuf += currentChar!!;
+          }
+          if (pointNum > 1) {
+            throw Error("point의 개수가 잘못되었습니다.");
+          }
+        }
+        console.log("num: " + Number(numBuf));
+        this.charIndex--;
       } else {
         let symbolBuf = currentChar;
 

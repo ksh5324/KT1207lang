@@ -1,7 +1,7 @@
 import { TokenParser } from "./TokenParser";
 
 let code = `
-    "wow I love it!"dfads경경ss경e경태js는efjlsej 경ㄱ경태dljk귀여운내가_데3;
+    "wow I love it!"dfads경경ss경e경옮태js는efjlsej경ㄱ경태dljk귀귀여운귀여운귀여여운귀여운내가_데323.234경태;
 `;
 
 code = code
