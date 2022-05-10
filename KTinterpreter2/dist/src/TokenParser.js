@@ -117,6 +117,15 @@ class TokenParser {
                         }
                         this.charIndex--;
                     }
+                    else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/헤/)) {
+                        while (currentChar !== "응") {
+                            currentChar = this.getChar();
+                            symbolBuf += currentChar;
+                        }
+                        console.log("curl_value: " + (symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.substring(1, symbolBuf.length - 1)));
+                    }
+                    else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/살/)) {
+                    }
                     else {
                         console.log("알수없는 문자: " + symbolBuf);
                     }
