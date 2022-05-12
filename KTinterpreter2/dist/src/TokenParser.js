@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TokenParser = void 0;
+const Token_1 = require("./Token");
 class TokenParser {
     constructor(code) {
         this.tokenList = new Array();
@@ -27,7 +28,7 @@ class TokenParser {
                     stringBuf += currentChar;
                 }
                 stringBuf = stringBuf === null || stringBuf === void 0 ? void 0 : stringBuf.substring(0, stringBuf.length - 1);
-                console.log(stringBuf);
+                this.tokenList.push({ type: Token_1.Token.string, value: stringBuf });
             }
             else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/[0-9.]/)) {
                 let numBuf = currentChar;
@@ -42,7 +43,7 @@ class TokenParser {
                         throw Error("point의 개수가 잘못되었습니다.");
                     }
                 }
-                console.log("num: " + Number(numBuf));
+                this.tokenList.push({ type: Token_1.Token.number, value: numBuf });
                 this.charIndex--;
             }
             else {
@@ -60,7 +61,7 @@ class TokenParser {
                             }
                         }
                     }
-                    console.log("symbol: " + symbolBuf);
+                    this.tokenList.push({ type: Token_1.Token.identifier, value: symbolBuf });
                 }
                 else {
                     // 경태 -> 변수 선언 및 경 -> 곱하기 연산자 찾아내기
@@ -68,14 +69,14 @@ class TokenParser {
                         while (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/[경|태]/)) {
                             currentChar = this.getChar();
                             if (symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.match(/경태/)) {
-                                console.log("var: " + symbolBuf);
+                                this.tokenList.push({ type: Token_1.Token.variable, value: symbolBuf });
                             } // if
                             else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/[a-zA-Z]/)) {
                                 if (symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.includes("경경")) {
                                     console.log("번째 실행문에서" + "error: mul 연산자가 2개입니다.");
                                 }
                                 else {
-                                    console.log("mul: " + symbolBuf);
+                                    this.tokenList.push({ type: Token_1.Token.div, value: symbolBuf });
                                 }
                             }
                             symbolBuf += currentChar;
@@ -88,16 +89,16 @@ class TokenParser {
                     else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/귀|여|운|태/)) {
                         switch (currentChar) {
                             case "귀":
-                                console.log("sum: " + symbolBuf);
+                                this.tokenList.push({ type: Token_1.Token.sum, value: symbolBuf });
                                 break;
                             case "여":
-                                console.log("sub: " + symbolBuf);
+                                this.tokenList.push({ type: Token_1.Token.sub, value: symbolBuf });
                                 break;
                             case "운":
-                                console.log("div: " + symbolBuf);
+                                this.tokenList.push({ type: Token_1.Token.mul, value: symbolBuf });
                                 break;
                             case "태":
-                                console.log("left: " + symbolBuf);
+                                this.tokenList.push({ type: Token_1.Token.left, value: symbolBuf });
                                 break;
                         }
                     }
@@ -106,7 +107,7 @@ class TokenParser {
                             currentChar = this.getChar();
                             symbolBuf += currentChar;
                             if ((symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.match(/내가_데/)) && (symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.length) === 4) {
-                                console.log("print: " + symbolBuf);
+                                this.tokenList.push({ type: Token_1.Token.print, value: symbolBuf });
                             } // if
                             else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/[a-zA-Z0-9]/)) {
                                 break;
@@ -122,12 +123,23 @@ class TokenParser {
                             currentChar = this.getChar();
                             symbolBuf += currentChar;
                         }
-                        console.log("curl_value: " + (symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.substring(1, symbolBuf.length - 1)));
+                        this.tokenList.push({
+                            type: Token_1.Token.start_curl,
+                            value: symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.substring(1, symbolBuf.length - 1),
+                        });
                     }
                     else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/살/)) {
+                        // while (currentChar?.match(/[살|고|싶|지|않|아|\?]/)) {
+                        //   currentChar = this.getChar();
+                        //   symbolBuf += currentChar!!;
+                        //   if (symbolBuf?.match(/살고싶지않아\?/)) {
+                        //     console.log("if: " + symbolBuf);
+                        //     while
+                        //   } // if
+                        // }
                     }
                     else {
-                        console.log("알수없는 문자: " + symbolBuf);
+                        throw Error("error: 알 수 없는 문자.");
                     }
                 } // symbol if
             }
