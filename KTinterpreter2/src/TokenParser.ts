@@ -119,6 +119,7 @@ class TokenParser {
               currentChar = this.getChar();
               symbolBuf += currentChar!!;
             }
+
             this.tokenList.push({
               type: Token.start_curl,
               value: symbolBuf?.substring(1, symbolBuf.length - 1),
