@@ -3,9 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ParserMethod_1 = require("./ParserMethod");
 const TokenParser_1 = require("./TokenParser");
 let code = `
-    "wow I love it!"dfads경경ss경e경옮태js는e
-    fjlsej경ㄱ경태dljk귀귀여운귀여운귀여여운귀여운내
-    가_데323.234경태;
+    "wow I love it!"dfads경경ss경e경태js는efjlsej경태dljk귀귀여운귀여운귀여여운귀여운내가_데323.234경태;
     헤
       경태34ekll;
       dfjsdjflksl;
@@ -27,7 +25,8 @@ let end = (0, ParserMethod_1.getAllIndexes)(distribute, "응");
 distribute = (0, ParserMethod_1.curl)(start, end, distribute);
 distribute.forEach((v) => {
     const parser = new TokenParser_1.TokenParser(v);
-    parser.parseAndGetTokens();
+    const object = parser.parseAndGetTokens();
+    console.log(object);
     console.log("-------------------------------------------------------");
 });
 //# sourceMappingURL=index.js.map
