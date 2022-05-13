@@ -15,5 +15,12 @@ export declare enum Token {
     finish_curl = 13,
     quote = 14,
     comma = 15,
-    semicolon = 16
+    semicolon = 16,
+    excess = 17,
+    moreThan = 18,
+    below = 19,
+    under = 20,
+    equl = 21,
+    if = 22,
+    condition = 23
 }

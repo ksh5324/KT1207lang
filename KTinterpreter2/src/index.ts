@@ -4,17 +4,28 @@ import { curl, getAllIndexes } from "./ParserMethod";
 import { TokenParser } from "./TokenParser";
 
 let code = `
-    경태aa는3;
+    경태aa는4;
     경태g는aa귀1;
 
     내가_데g"나는야"aa"경 태"123;
 
+    여기서문제aa끔3
     헤
      경태b는7;
      경태c는2;
      경태d는8;
      경태e는1;
-     내가_데b귀c귀d여e;
+     내가_데b귀c귀d;
+    응;
+
+    여기서문제5끔3
+    헤
+     내가_데b귀c귀d;
+    응;
+
+    여기서문제2끔3
+    헤
+     내가_데b귀c귀d;
     응;
 `;
 

@@ -10,6 +10,7 @@ class Analyse {
         this.currentToken = null;
         this.variable = [];
         this.output = [];
+        this.bool = false;
         this.tokenList = tokenList;
         this.variable = context.variable;
         this.output = context.output;
@@ -26,10 +27,11 @@ class Analyse {
         return {
             variable: this.variable,
             output: this.output,
+            bool: this.bool,
         };
     }
     tokenResultSave() {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e, _f;
         this.getNextToken();
         if (((_a = this.currentToken) === null || _a === void 0 ? void 0 : _a.type) === 2) {
             if (this.tokenList[this.tokenIndex].type !== 1) {
@@ -60,7 +62,22 @@ class Analyse {
         if (((_c = this.currentToken) === null || _c === void 0 ? void 0 : _c.type) === 6) {
             this.output.push(this.getStringValue());
         }
-        if (((_d = this.currentToken) === null || _d === void 0 ? void 0 : _d.type) === 12) {
+        if (((_d = this.currentToken) === null || _d === void 0 ? void 0 : _d.type) === 17) {
+            this.bool = this.getBool();
+        }
+        if (((_e = this.currentToken) === null || _e === void 0 ? void 0 : _e.type) === 22) {
+            if (this.tokenList[this.tokenIndex].type === 23) {
+                const parser = new TokenParser_1.TokenParser(this.tokenList[this.tokenIndex].value);
+                const object = parser.parseAndGetTokens();
+                const analyse2 = new Analyse(object, this.context);
+                const middle2 = analyse2.tokenResult();
+                this.bool = middle2.bool;
+            }
+            else {
+                throw Error("조건이 잘못됨");
+            }
+        }
+        if (((_f = this.currentToken) === null || _f === void 0 ? void 0 : _f.type) === 12 && this.bool) {
             let distribute = this.currentToken.value.split(";");
             distribute.pop();
             // console.log(distribute);
@@ -155,6 +172,46 @@ class Analyse {
         }
         resultValue = resultValue.concat(eval(middleValue));
         return resultValue;
+    }
+    getBool() {
+        const operatorToken = [];
+        let operatorTokenIndex = 0;
+        let middleValue = "";
+        while (this.tokenIndex <= this.tokenList.length - 1) {
+            this.getNextToken();
+        }
+        for (let i = 0; i <= this.tokenList.length - 1; i++) {
+            operatorToken.push(this.tokenList[i]);
+        }
+        while (operatorTokenIndex <= operatorToken.length - 1) {
+            if (operatorToken[operatorTokenIndex].type === 1) {
+                const change = this.variable.findIndex((v) => v.id === operatorToken[operatorTokenIndex].value);
+                middleValue = middleValue.concat("" + this.variable[change].value);
+            }
+            else if (operatorToken[operatorTokenIndex].type === 4) {
+                middleValue = middleValue.concat("" + operatorToken[operatorTokenIndex].value);
+            }
+            else if (operatorToken[operatorTokenIndex].type === 17) {
+                middleValue = middleValue.concat(">");
+            }
+            else if (operatorToken[operatorTokenIndex].type === 18) {
+                middleValue = middleValue.concat(">=");
+            }
+            else if (operatorToken[operatorTokenIndex].type === 19) {
+                middleValue = middleValue.concat("<");
+            }
+            else if (operatorToken[operatorTokenIndex].type === 20) {
+                middleValue = middleValue.concat("<=");
+            }
+            else if (operatorToken[operatorTokenIndex].type === 21) {
+                middleValue = middleValue.concat("=");
+            }
+            else {
+                throw Error("잘못된 식입니다");
+            }
+            operatorTokenIndex++;
+        }
+        return eval(middleValue);
     }
 }
 exports.Analyse = Analyse;
