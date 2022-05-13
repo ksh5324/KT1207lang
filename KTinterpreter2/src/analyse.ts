@@ -11,6 +11,7 @@ export class Analyse {
 
   variable: variable[] = [];
   output: string[] = [];
+  bool: boolean = false;
 
   constructor(tokenList: tokenList_Type[], context: Context) {
     this.tokenList = tokenList;
@@ -31,6 +32,7 @@ export class Analyse {
     return {
       variable: this.variable,
       output: this.output,
+      bool: this.bool,
     };
   }
 
@@ -75,7 +77,25 @@ export class Analyse {
       this.output.push(this.getStringValue());
     }
 
-    if (this.currentToken?.type === 12) {
+    if (this.currentToken?.type === 17) {
+      this.bool = this.getBool();
+    }
+
+    if (this.currentToken?.type === 22) {
+      if (this.tokenList[this.tokenIndex].type === 23) {
+        const parser = new TokenParser(this.tokenList[this.tokenIndex].value);
+        const object: tokenList_Type[] = parser.parseAndGetTokens();
+
+        const analyse2 = new Analyse(object, this.context);
+        const middle2 = analyse2.tokenResult();
+
+        this.bool = middle2.bool;
+      } else {
+        throw Error("조건이 잘못됨");
+      }
+    }
+
+    if (this.currentToken?.type === 12 && this.bool) {
       let distribute = this.currentToken.value.split(";");
       distribute.pop();
       // console.log(distribute);
@@ -169,6 +189,44 @@ export class Analyse {
     }
     resultValue = resultValue.concat(eval(middleValue));
     return resultValue;
+  }
+
+  getBool() {
+    const operatorToken: tokenList_Type[] = [];
+    let operatorTokenIndex: number = 0;
+    let middleValue: string = "";
+    while (this.tokenIndex <= this.tokenList.length - 1) {
+      this.getNextToken();
+    }
+    for (let i = 0; i <= this.tokenList.length - 1; i++) {
+      operatorToken.push(this.tokenList[i]!!);
+    }
+    while (operatorTokenIndex <= operatorToken.length - 1) {
+      if (operatorToken[operatorTokenIndex].type === 1) {
+        const change = this.variable.findIndex(
+          (v) => v.id === operatorToken[operatorTokenIndex].value
+        );
+        middleValue = middleValue.concat("" + this.variable[change].value);
+      } else if (operatorToken[operatorTokenIndex].type === 4) {
+        middleValue = middleValue.concat(
+          "" + operatorToken[operatorTokenIndex].value
+        );
+      } else if (operatorToken[operatorTokenIndex].type === 17) {
+        middleValue = middleValue.concat(">");
+      } else if (operatorToken[operatorTokenIndex].type === 18) {
+        middleValue = middleValue.concat(">=");
+      } else if (operatorToken[operatorTokenIndex].type === 19) {
+        middleValue = middleValue.concat("<");
+      } else if (operatorToken[operatorTokenIndex].type === 20) {
+        middleValue = middleValue.concat("<=");
+      } else if (operatorToken[operatorTokenIndex].type === 21) {
+        middleValue = middleValue.concat("=");
+      } else {
+        throw Error("잘못된 식입니다");
+      }
+      operatorTokenIndex++;
+    }
+    return eval(middleValue);
   }
 }
 

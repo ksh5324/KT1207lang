@@ -22,4 +22,11 @@ export enum Token {
 
   comma,
   semicolon, //, ;
+  excess, // 초과
+  moreThan, // 이상
+  below, // 이하
+  under, // 미만
+  equl, // 대입
+  if,
+  condition,
 }

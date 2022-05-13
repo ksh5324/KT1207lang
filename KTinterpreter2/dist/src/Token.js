@@ -20,5 +20,12 @@ var Token;
     Token[Token["quote"] = 14] = "quote";
     Token[Token["comma"] = 15] = "comma";
     Token[Token["semicolon"] = 16] = "semicolon";
+    Token[Token["excess"] = 17] = "excess";
+    Token[Token["moreThan"] = 18] = "moreThan";
+    Token[Token["below"] = 19] = "below";
+    Token[Token["under"] = 20] = "under";
+    Token[Token["equl"] = 21] = "equl";
+    Token[Token["if"] = 22] = "if";
+    Token[Token["condition"] = 23] = "condition";
 })(Token = exports.Token || (exports.Token = {}));
 //# sourceMappingURL=Token.js.map

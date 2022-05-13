@@ -1,7 +1,6 @@
 export class Context {
   variable: variable[] = [];
   output: string[] = [];
-  block: string[] = [];
 }
 
 export type variable = {

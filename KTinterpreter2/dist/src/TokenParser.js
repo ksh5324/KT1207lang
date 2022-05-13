@@ -86,12 +86,12 @@ class TokenParser {
                     else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/는/)) {
                         this.tokenList.push({ type: Token_1.Token.assign, value: symbolBuf });
                     }
-                    else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/귀|여|운|태/)) {
+                    else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/귀|요|운|태|끔|찍|한|새|끼/)) {
                         switch (currentChar) {
                             case "귀":
                                 this.tokenList.push({ type: Token_1.Token.sum, value: symbolBuf });
                                 break;
-                            case "여":
+                            case "요":
                                 this.tokenList.push({ type: Token_1.Token.sub, value: symbolBuf });
                                 break;
                             case "운":
@@ -99,6 +99,21 @@ class TokenParser {
                                 break;
                             case "태":
                                 this.tokenList.push({ type: Token_1.Token.left, value: symbolBuf });
+                                break;
+                            case "끔":
+                                this.tokenList.push({ type: Token_1.Token.excess, value: symbolBuf });
+                                break;
+                            case "찍":
+                                this.tokenList.push({ type: Token_1.Token.moreThan, value: symbolBuf });
+                                break;
+                            case "한":
+                                this.tokenList.push({ type: Token_1.Token.under, value: symbolBuf });
+                                break;
+                            case "새":
+                                this.tokenList.push({ type: Token_1.Token.below, value: symbolBuf });
+                                break;
+                            case "끼":
+                                this.tokenList.push({ type: Token_1.Token.equl, value: symbolBuf });
                                 break;
                         }
                     }
@@ -128,18 +143,33 @@ class TokenParser {
                             value: symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.substring(1, symbolBuf.length - 1),
                         });
                     }
-                    else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/살/)) {
-                        // while (currentChar?.match(/[살|고|싶|지|않|아|\?]/)) {
-                        //   currentChar = this.getChar();
-                        //   symbolBuf += currentChar!!;
-                        //   if (symbolBuf?.match(/살고싶지않아\?/)) {
-                        //     console.log("if: " + symbolBuf);
-                        //     while
-                        //   } // if
-                        // }
+                    else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/[여|기|서|문|제]/)) {
+                        this.charIndex -= 1;
+                        symbolBuf = "";
+                        currentChar = this.getChar();
+                        symbolBuf += currentChar;
+                        while (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/[여|기|서|문|제]/)) {
+                            currentChar = this.getChar();
+                            symbolBuf += currentChar;
+                            if (symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.match(/여기서문제/)) {
+                                this.tokenList.push({ type: Token_1.Token.if, value: symbolBuf });
+                                symbolBuf = "";
+                                currentChar = this.getChar();
+                                this.charIndex--;
+                                while (!(currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/헤/))) {
+                                    currentChar = this.getChar();
+                                    symbolBuf = symbolBuf === null || symbolBuf === void 0 ? void 0 : symbolBuf.concat(currentChar);
+                                }
+                                this.tokenList.push({
+                                    type: Token_1.Token.condition,
+                                    value: symbolBuf.substring(0, symbolBuf.length - 1),
+                                });
+                            } // if
+                        }
+                        this.charIndex--;
                     }
                     else {
-                        throw Error("error: 알 수 없는 문자.");
+                        throw Error("error: 알 수 없는 문자." + currentChar);
                     }
                 } // symbol if
             }

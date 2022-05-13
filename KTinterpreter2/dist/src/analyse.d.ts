@@ -6,15 +6,18 @@ export declare class Analyse {
     context: Context;
     variable: variable[];
     output: string[];
+    bool: boolean;
     constructor(tokenList: tokenList_Type[], context: Context);
     getNextToken(): void;
     tokenResult(): {
         variable: variable[];
         output: string[];
+        bool: boolean;
     };
     tokenResultSave(): void;
     getValue(): any;
     getStringValue(): string;
+    getBool(): any;
 }
 export declare type tokenList_Type = {
     type: number;
