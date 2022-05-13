@@ -1,10 +1,13 @@
 import { Context, variable } from "./context";
 import { variableIncludes } from "./ParserMethod";
+import { TokenParser } from "./TokenParser";
 
 export class Analyse {
   tokenIndex = 0;
   tokenList: tokenList_Type[] = [];
   currentToken: tokenList_Type | null = null;
+
+  context: Context;
 
   variable: variable[] = [];
   output: string[] = [];
@@ -13,6 +16,7 @@ export class Analyse {
     this.tokenList = tokenList;
     this.variable = context.variable;
     this.output = context.output;
+    this.context = context;
   }
 
   getNextToken() {
@@ -69,6 +73,22 @@ export class Analyse {
     }
     if (this.currentToken?.type === 6) {
       this.output.push(this.getStringValue());
+    }
+
+    if (this.currentToken?.type === 12) {
+      let distribute = this.currentToken.value.split(";");
+      distribute.pop();
+      // console.log(distribute);
+      distribute.forEach((v: any) => {
+        const parser = new TokenParser(v);
+        const object: tokenList_Type[] = parser.parseAndGetTokens();
+
+        const analyse2 = new Analyse(object, this.context);
+        const middle2 = analyse2.tokenResult();
+
+        this.context.variable = middle2.variable;
+        this.context.output = middle2.output;
+      });
     }
   }
 
