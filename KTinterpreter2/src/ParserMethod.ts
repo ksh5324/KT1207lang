@@ -1,3 +1,5 @@
+import { variable } from "./context";
+
 export function getAllIndexes(arr: string[], val: string): Array<number> {
   var indexes: number[] = [];
   arr.forEach((v: string, i: number) => {
@@ -24,3 +26,8 @@ export function curl(start: number[], end: number[], distribute: string[]) {
 
   return (distribute = distribute.filter((v) => v !== ""));
 }
+
+export const variableIncludes = (id: string, variable: variable[]): boolean => {
+  const bool = variable.find((v) => v.id === id);
+  return bool ? false : true;
+};

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.curl = exports.getAllIndexes = void 0;
+exports.variableIncludes = exports.curl = exports.getAllIndexes = void 0;
 function getAllIndexes(arr, val) {
     var indexes = [];
     arr.forEach((v, i) => {
@@ -26,4 +26,9 @@ function curl(start, end, distribute) {
     return (distribute = distribute.filter((v) => v !== ""));
 }
 exports.curl = curl;
+const variableIncludes = (id, variable) => {
+    const bool = variable.find((v) => v.id === id);
+    return bool ? false : true;
+};
+exports.variableIncludes = variableIncludes;
 //# sourceMappingURL=ParserMethod.js.map

@@ -1,10 +1,10 @@
-import { Token } from "./Token";
+import { tokenList_Type } from "./analyse";
 declare class TokenParser {
     private code;
     private tokenList;
     constructor(code: string);
     private charIndex;
     private getChar;
-    parseAndGetTokens(): Array<Token>;
+    parseAndGetTokens(): Array<tokenList_Type>;
 }
 export { TokenParser };

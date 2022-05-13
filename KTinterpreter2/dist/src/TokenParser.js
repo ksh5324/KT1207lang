@@ -84,7 +84,7 @@ class TokenParser {
                         this.charIndex--; // 한글자 초과 해결
                     } // symbol>var,mul if
                     else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/는/)) {
-                        console.log("assign: " + symbolBuf);
+                        this.tokenList.push({ type: Token_1.Token.assign, value: symbolBuf });
                     }
                     else if (currentChar === null || currentChar === void 0 ? void 0 : currentChar.match(/귀|여|운|태/)) {
                         switch (currentChar) {
