@@ -1,8 +1,9 @@
+import { tokenList_Type } from "./analyse";
 import { Token } from "./Token";
 
 class TokenParser {
   private code: string;
-  private tokenList = new Array();
+  private tokenList = new Array<tokenList_Type>();
 
   constructor(code: string) {
     this.code = code;
@@ -15,7 +16,7 @@ class TokenParser {
     return this.code[this.charIndex++];
   }
 
-  public parseAndGetTokens(): Array<Token> {
+  public parseAndGetTokens(): Array<tokenList_Type> {
     let currentChar = this.getChar();
     while (currentChar != null) {
       while (currentChar === " ") {
@@ -84,7 +85,7 @@ class TokenParser {
             this.charIndex--; // 한글자 초과 해결
           } // symbol>var,mul if
           else if (currentChar?.match(/는/)) {
-            console.log("assign: " + symbolBuf);
+            this.tokenList.push({ type: Token.assign, value: symbolBuf });
           } else if (currentChar?.match(/귀|여|운|태/)) {
             switch (currentChar) {
               case "귀":

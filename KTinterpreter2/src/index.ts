@@ -1,24 +1,21 @@
+import { Analyse } from "./analyse";
+import { Context } from "./context";
 import { curl, getAllIndexes } from "./ParserMethod";
 import { TokenParser } from "./TokenParser";
 
 let code = `
-    "wow I love it!"dfads경경ss경e경태js는efjlsej경태dljk귀귀여운귀여운귀여여운귀여운내가_데323.234경태;
-    헤
-      경태34ekll;
-      dfjsdjflksl;
-      dfjsei;
-    응;
-    헤
-      경태34ekll;
-      dfjsdjflksl;
-      dfjsei;
-    응;
+    경태a는3;
+    경태g는a귀1;
+
+    내가_데g"sdf"a"3fe"3;
 `;
 
 code = code
   .split("\n")
   .map((line: string) => line.trim())
   .join("");
+
+const context = new Context();
 
 let distribute = code.split(";");
 let start: number[] = getAllIndexes(distribute, "헤");
@@ -28,6 +25,15 @@ distribute = curl(start, end, distribute);
 distribute.forEach((v) => {
   const parser = new TokenParser(v);
   const object = parser.parseAndGetTokens();
-  console.log(object);
-  console.log("-------------------------------------------------------");
+
+  const analyse = new Analyse(object, context);
+  const middle = analyse.tokenResult();
+
+  context.variable = middle.variable;
+  context.output = middle.output;
+  // console.log(context);
+});
+
+context.output.forEach((v) => {
+  console.log(v);
 });
