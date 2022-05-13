@@ -5,6 +5,7 @@ class Context {
     constructor() {
         this.variable = [];
         this.output = [];
+        this.block = [];
     }
 }
 exports.Context = Context;

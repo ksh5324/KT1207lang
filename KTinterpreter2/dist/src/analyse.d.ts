@@ -3,6 +3,7 @@ export declare class Analyse {
     tokenIndex: number;
     tokenList: tokenList_Type[];
     currentToken: tokenList_Type | null;
+    context: Context;
     variable: variable[];
     output: string[];
     constructor(tokenList: tokenList_Type[], context: Context);

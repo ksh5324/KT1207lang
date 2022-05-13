@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Analyse = void 0;
 const ParserMethod_1 = require("./ParserMethod");
+const TokenParser_1 = require("./TokenParser");
 class Analyse {
     constructor(tokenList, context) {
         this.tokenIndex = 0;
@@ -12,6 +13,7 @@ class Analyse {
         this.tokenList = tokenList;
         this.variable = context.variable;
         this.output = context.output;
+        this.context = context;
     }
     getNextToken() {
         this.currentToken = this.tokenList[this.tokenIndex];
@@ -27,7 +29,7 @@ class Analyse {
         };
     }
     tokenResultSave() {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         this.getNextToken();
         if (((_a = this.currentToken) === null || _a === void 0 ? void 0 : _a.type) === 2) {
             if (this.tokenList[this.tokenIndex].type !== 1) {
@@ -57,6 +59,19 @@ class Analyse {
         }
         if (((_c = this.currentToken) === null || _c === void 0 ? void 0 : _c.type) === 6) {
             this.output.push(this.getStringValue());
+        }
+        if (((_d = this.currentToken) === null || _d === void 0 ? void 0 : _d.type) === 12) {
+            let distribute = this.currentToken.value.split(";");
+            distribute.pop();
+            // console.log(distribute);
+            distribute.forEach((v) => {
+                const parser = new TokenParser_1.TokenParser(v);
+                const object = parser.parseAndGetTokens();
+                const analyse2 = new Analyse(object, this.context);
+                const middle2 = analyse2.tokenResult();
+                this.context.variable = middle2.variable;
+                this.context.output = middle2.output;
+            });
         }
     }
     getValue() {
