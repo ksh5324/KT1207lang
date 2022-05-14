@@ -10,11 +10,72 @@ export const ChatContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  transition: 0.5s;
   padding: 27px;
 
+  .line {
+    width: 100%;
+    height: 0px;
+    border: 1px solid ${(props) => props.theme.header};
+  }
+
   header {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 30px;
+    position: relative;
+    svg {
+      circle {
+        fill: ${(props) => props.theme.header};
+      }
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .picture {
+      width: 43px;
+      height: 43px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 9px;
+    }
+
+    .profile {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .id {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 18px;
+      color: ${(props) => props.theme.fontColor};
+    }
+    .name {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 10px;
+      line-height: 12px;
+      color: ${(props) => props.theme.fontColor};
+    }
   }
   main {
+    width: 100%;
+    height: 100%;
+    padding: 14px;
   }
   footer {
     width: 555px;
@@ -40,8 +101,7 @@ export const ChatContainer = styled.div`
       font-weight: 400;
       font-size: 15px;
       line-height: 15px;
-
-      color: ${(props) => props.theme.color};
+      color: ${(props) => props.theme.fontColor};
 
       ::-webkit-scrollbar {
         width: 10px;
@@ -94,5 +154,8 @@ export const ChatContainer = styled.div`
         cursor: pointer;
       }
     }
+  }
+  .not-show {
+    opacity: 0;
   }
 `;
