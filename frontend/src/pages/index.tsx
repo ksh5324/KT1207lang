@@ -31,7 +31,7 @@ const Home: NextPage = () => {
 
   return (
     <Index>
-      <Chat chooseTheme={chooseTheme} />
+      <Chat theme={theme} chooseTheme={chooseTheme} />
     </Index>
   );
 };

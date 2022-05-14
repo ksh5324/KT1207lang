@@ -41,7 +41,11 @@ const Footer = ({ toggleColor, chooseTheme, show }: any) => {
             </svg>
           </div>
         </div>
-        {show && <ChooseColor chooseTheme={chooseTheme} />}
+        {show ? (
+          <ChooseColor chooseTheme={chooseTheme} not={false} />
+        ) : (
+          <ChooseColor chooseTheme={chooseTheme} not={true} />
+        )}
         <button>실행</button>
       </div>
     </footer>

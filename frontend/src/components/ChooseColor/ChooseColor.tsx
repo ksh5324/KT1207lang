@@ -8,16 +8,18 @@ const colorState = [
   { mode: "dark" },
 ];
 
-const ChooseColor = ({ chooseTheme }: any) => {
+const ChooseColor = ({ chooseTheme, not }: any) => {
   return (
     <ChooseContainer>
-      {colorState.map((v, i) => (
-        <div
-          className="color"
-          key={i}
-          onClick={() => chooseTheme(v.mode)}
-        ></div>
-      ))}
+      <div className={not ? "not" : "show"}>
+        {colorState.map((v, i) => (
+          <div
+            className="color"
+            key={i}
+            onClick={() => chooseTheme(v.mode)}
+          ></div>
+        ))}
+      </div>
     </ChooseContainer>
   );
 };
