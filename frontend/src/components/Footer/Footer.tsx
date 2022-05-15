@@ -15,7 +15,7 @@ const Footer = ({ toggleColor, chooseTheme, show }: any) => {
     [value]
   );
   const onClickRuntime = useCallback(async () => {
-    const res = await axios.post("http://http://kt-lang.tk:3080/run", {
+    const res = await axios.post("http://kt-lang.tk:3080/run", {
       code: value,
     } as any);
     dispatch({
