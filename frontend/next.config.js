@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    loader: "akamai",
-    path: "/",
+    loader: "imgix",
+    domain: [process.env.CLIENT], // 이미지 도메인
   },
 };
 

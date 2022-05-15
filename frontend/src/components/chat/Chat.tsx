@@ -5,6 +5,7 @@ import Image from "next/image";
 import kt from "../../assets/image/kt.png";
 import More from "../More/More";
 import { useSelector } from "react-redux";
+import { imgLoader } from "../../util/imgLoader";
 
 const Chat = ({ theme, chooseTheme }: any) => {
   const [show, setShow] = useState(false);

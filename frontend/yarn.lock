@@ -2247,6 +2247,11 @@ next-compose-plugins@^2.2.1:
   resolved "https://registry.yarnpkg.com/next-compose-plugins/-/next-compose-plugins-2.2.1.tgz#020fc53f275a7e719d62521bef4300fbb6fde5ab"
   integrity sha512-OjJ+fV15FXO2uQXQagLD4C0abYErBjyjE0I0FHpOEIB8upw0hg1ldFP6cqHTJBH1cZqy96OeR3u1dJ+Ez2D4Bg==
 
+next-image-loader@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/next-image-loader/-/next-image-loader-2.0.6.tgz#e8596efb93a6d73e87c797fab8d7139ef1bea9f9"
+  integrity sha512-TeMeOyQ1DbI9ZfCKjrvErsMrClpkm2idPfPAUlURSNV3NQPCBhhQi40ejlmvJQ4Btr1UFNMPFQ35LeHDJWoN5A==
+
 next-optimized-images@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/next-optimized-images/-/next-optimized-images-2.6.2.tgz#8974a2186758c50e1a263c6866dbec5c25280db5"
