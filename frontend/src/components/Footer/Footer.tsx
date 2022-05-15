@@ -1,11 +1,32 @@
 import Link from "next/link";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import ChooseColor from "../ChooseColor";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { SET_OUTPUT } from "../../reducers/code";
 
 const Footer = ({ toggleColor, chooseTheme, show }: any) => {
+  const [value, setValue] = useState("");
+  const dispatch = useDispatch();
+  const changeValue = useCallback(
+    (e: any) => {
+      setValue(e.target.value);
+    },
+    [value]
+  );
+  const onClickRuntime = useCallback(async () => {
+    const res = await axios.post("http://localhost:3080/run", {
+      code: value,
+    } as any);
+    dispatch({
+      type: SET_OUTPUT,
+      data: res.data,
+    });
+  }, [value]);
+
   return (
     <footer>
-      <textarea></textarea>
+      <textarea value={value} onChange={changeValue}></textarea>
       <div className="footer-footer">
         <div className="iconContainer">
           <Link href="https://github.com/ksh5324/KT1207lang">
@@ -46,7 +67,7 @@ const Footer = ({ toggleColor, chooseTheme, show }: any) => {
         ) : (
           <ChooseColor chooseTheme={chooseTheme} not={true} />
         )}
-        <button>실행</button>
+        <button onClick={onClickRuntime}>실행</button>
       </div>
     </footer>
   );

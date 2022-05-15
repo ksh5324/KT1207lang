@@ -4,10 +4,13 @@ import Footer from "../Footer/Footer";
 import Image from "next/image";
 import kt from "../../assets/image/kt.png";
 import More from "../More/More";
+import { useSelector } from "react-redux";
 
 const Chat = ({ theme, chooseTheme }: any) => {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
+
+  const { code } = useSelector((state: any) => state.codes);
 
   useEffect(() => {
     setShow(false);
@@ -50,7 +53,13 @@ const Chat = ({ theme, chooseTheme }: any) => {
         {show2 && <More />}
       </header>
       <div className="line"></div>
-      <main></main>
+      <main>
+        <pre>
+          {code.map((v: any) => {
+            return v + "\n";
+          })}
+        </pre>
+      </main>
       <Footer toggleColor={toggleColor} chooseTheme={chooseTheme} show={show} />
     </ChatContainer>
   );

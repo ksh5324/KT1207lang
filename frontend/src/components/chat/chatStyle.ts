@@ -76,6 +76,14 @@ export const ChatContainer = styled.div`
     width: 100%;
     height: 100%;
     padding: 14px;
+    pre {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      color: ${(props) => props.theme.fontColor};
+    }
   }
   footer {
     width: 555px;
